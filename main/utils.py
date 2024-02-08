@@ -98,3 +98,14 @@ def operation_currency(operation):
     amount_operation = operation.get("operationAmount")
     currency = amount_operation.get("currency").get("name")
     return currency.strip('')
+
+
+if __name__ == '__main__':
+    operations = load_operations()
+    operations = sorted_operations(operations)
+    operations = filter_operations(operations)
+    for operation in operations:
+        mask_operation(operation)
+        print(formatter_date(operation), operation["description"])
+        print(f"{operation.get("from", "Источник не известен")} -> {operation["to"]}")
+        print(f"{operation_amount(operation)} {operation_currency(operation)} \n")
